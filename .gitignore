@@ -6,3 +6,7 @@ __pycache__/
 .agentshield/
 *.db
 work/
+
+build/
+dist/
+*.spec.bak
