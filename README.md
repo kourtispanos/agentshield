@@ -15,6 +15,11 @@ handles is throwaway decoy data, and nothing real ever leaves your machine.
 > for LLM Applications). It demonstrates how agent attacks and defences work — it
 > is not a production security product.
 
+**Just want to run it?** Download the installer:
+**[⬇️ AgentShieldSetup.exe](https://github.com/kourtispanos/agentshield/releases/latest/download/AgentShieldSetup.exe)**
+(Windows, no admin needed). You'll also need [Ollama](https://ollama.com/)
+installed and running with a model — `ollama pull qwen2.5:7b`.
+
 ---
 
 # What it does
