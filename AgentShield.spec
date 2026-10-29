@@ -4,7 +4,12 @@
 # separately and running.
 
 from kivy_deps import glew, sdl2
-from kivy.tools.packaging.pyinstaller_hooks import hookspath, runtime_hooks
+from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, hookspath, runtime_hooks
+
+# Explicitly pull the image/text/window/clipboard providers (and exclude the
+# unused video/audio/camera ones) - without this the frozen app can't load any
+# image provider and aborts.
+kivy_extra = get_deps_minimal(video=None, audio=None, camera=None, spelling=None)
 
 a = Analysis(
     ['frontend/app.py'],
@@ -15,11 +20,11 @@ a = Analysis(
         ('frontend/assets', 'assets'),
         ('models/agentshield-villain.Modelfile', 'models'),
     ],
-    hiddenimports=[],
+    hiddenimports=kivy_extra['hiddenimports'] + ['PIL._imaging'],
     hookspath=hookspath(),
     hooksconfig={},
     runtime_hooks=runtime_hooks(),
-    excludes=['mcp', 'pytest', 'PIL', 'pillow'],
+    excludes=['mcp', 'pytest'] + kivy_extra.get('excludes', []),
     noarchive=False,
 )
 pyz = PYZ(a.pure)
